@@ -1,0 +1,18 @@
+CI pipeline should only:
+✔ Install dependencies
+✔ Run tests (or lint)
+✔ Maybe build Docker image (optional)
+No deployment to Kubernetes, because everything is local.
+Example .github/workflows/ci.yml:
+name: CI Test
+on: [push]
+
+jobs:
+test:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v3
+- name: Install dependencies
+run: npm install
+- name: Run tests
+run: npm test
