@@ -16,10 +16,19 @@ spec:
     spec:
       containers:
       - name: kube-lab-container
-        image: kube-lab-app:v100
+        image: kube-lab-app:v1
         ports:
         - containerPort: 8080
         resources:
-          limits:
+          requests:
+            cpu: "100m"
             memory: "128Mi"
-            cpu: "500m"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+        env:
+          - name: APP_ENV 
+            valueFrom:
+              configMapKeyRef:
+                name: app-config 
+                key: APP_ENV
