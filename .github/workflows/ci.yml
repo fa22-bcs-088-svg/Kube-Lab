@@ -1,12 +1,27 @@
 name: CI Test
-on: [push]
+
+on:
+  push:
+    branches: [ main ] 
+  pull_request:
+    branches: [ main ] 
 
 jobs:
-test:
-runs-on: ubuntu-latest
-steps:
-- uses: actions/checkout@v3
-- name: Install dependencies
-run: npm install
-- name: Run tests
-run: npm test
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3 # Fetches the repository content
+      
+    - name: Set up Node.js Environment
+      # 3. ⭐️ ADDED: Explicitly set the Node.js version for consistency
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+        
+    - name: Install Dependencies
+      run: npm install 
+      
+    - name: Run Tests and Linting
+      run: npm test 
