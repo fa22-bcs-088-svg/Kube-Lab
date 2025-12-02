@@ -5,7 +5,7 @@ metadata:
   labels:
     app: kube-lab-app
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: kube-lab-app
@@ -32,3 +32,15 @@ spec:
               configMapKeyRef:
                 name: app-config 
                 key: APP_ENV
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 5
